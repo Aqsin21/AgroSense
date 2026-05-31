@@ -1,6 +1,6 @@
 <Solution>
   <Project Path="AgroSense.API/AgroSense.API.csproj" />
-  <Project Path="AgroSense.Application/AgroSense.Application.csproj" />
+  <Project Path="AgroSense.Application/AgroSense.Application.csproj" Id="2054c215-9858-4bf0-bd5a-94bc510febea" />
   <Project Path="AgroSense.Domain/AgroSense.Domain.csproj" />
-  <Project Path="AgroSense.Infrastructure/AgroSense.Infrastructure.csproj" />
+  <Project Path="AgroSense.Infrastructure/AgroSense.Infrastructure.csproj" Id="ee0eb589-316b-44d2-8ed3-9ea46f2a4a5f" />
 </Solution>
