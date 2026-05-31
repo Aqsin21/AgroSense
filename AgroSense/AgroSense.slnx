@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="AgroSense.API/AgroSense.API.csproj" />
+  <Project Path="AgroSense.Application/AgroSense.Application.csproj" />
+  <Project Path="AgroSense.Domain/AgroSense.Domain.csproj" />
+  <Project Path="AgroSense.Infrastructure/AgroSense.Infrastructure.csproj" />
+</Solution>
