@@ -2,7 +2,7 @@
 using AgroSense.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-namespace AgroSense.Infrastructure.Persistance
+namespace AgroSense.Infrastructure.Persistence
 {
     public class AppDbContext : IdentityDbContext<AppUser>
     {
