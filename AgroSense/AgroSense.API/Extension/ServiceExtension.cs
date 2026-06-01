@@ -1,32 +1,8 @@
-﻿using AgroSense.Infrastructure.Identity;
-using AgroSense.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-namespace AgroSense.API.Extensions
+﻿using Microsoft.OpenApi.Models;
+namespace AgroSense.API.Extension
 {
     public static class ServiceExtensions
     {
-        public static IServiceCollection AddDatabase(
-            this IServiceCollection services,
-            IConfiguration configuration)
-        {
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
-
-            return services;
-        }
-
-        public static IServiceCollection AddIdentityServices(
-            this IServiceCollection services)
-        {
-            services.AddIdentity<AppUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-
-            return services;
-        }
-
         public static IServiceCollection AddSwaggerWithJwt(
             this IServiceCollection services)
         {
