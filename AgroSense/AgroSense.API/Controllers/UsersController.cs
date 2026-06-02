@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgroSense.API.Controllers
 {
@@ -77,5 +78,49 @@ namespace AgroSense.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        public async Task<ActionResult<List<UserResponse>>> GetUsers()
+        {
+            var users= await _userManager.Users.ToListAsync();
+            var response= new List<UserResponse>();
+
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                response.Add(new UserResponse
+                {
+                    Id = user.Id,
+                    FullName = user.FullName,
+                    Email = user.Email,
+                    IsActive = user.IsActive,
+                    MustChangePassword = user.MustChangePassword,
+                    Roles = roles
+                }
+                );
+               
+
+            }
+            return Ok(response);
+        }
+
+        [HttpPatch("{id}/status")]
+        public async Task<IActionResult> UpdateUserStatus(string id, UpdateUserStatusRequest request)    
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+                return NotFound("User not found");
+            user.IsActive=request.IsActive;
+            var result =await _userManager.UpdateAsync(user);
+            if(!result.Succeeded)
+            {
+                return BadRequest(result.Errors.Select(x => x.Description));
+            }
+
+            return Ok("User status updated successfully.");
+        }
+
+
+
     }
 }
