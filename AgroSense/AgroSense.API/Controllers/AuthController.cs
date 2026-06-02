@@ -3,7 +3,8 @@ using AgroSense.Application.Interfaces;
 using AgroSense.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 namespace AgroSense.API.Controllers
 {
     [Route("api/[controller]")]
@@ -60,6 +61,46 @@ namespace AgroSense.API.Controllers
             };
 
             return Ok(response);
+        }
+
+        [Authorize]
+        [HttpPost("Change Password")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordRequest request)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrWhiteSpace(userId))
+            {
+                return Unauthorized();
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user is null)
+            {
+                return Unauthorized();
+            }
+
+            var result = await _userManager.ChangePasswordAsync(
+                user,
+                request.CurrentPassword,
+                request.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors.Select(x => x.Description));
+            }
+
+            user.MustChangePassword = false;
+
+            var updateResult = await _userManager.UpdateAsync(user);
+
+            if (!updateResult.Succeeded)
+            {
+                return BadRequest(updateResult.Errors.Select(x => x.Description));
+            }
+
+            return Ok("Password changed successfully.");
         }
 
     }
