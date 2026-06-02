@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\AgroSense.Application\AgroSense.Application.csproj" />
     <ProjectReference Include="..\AgroSense.Infrastructure\AgroSense.Infrastructure.csproj" />
   </ItemGroup>
