@@ -1,6 +1,8 @@
 ﻿using AgroSense.Application.Interfaces;
+using AgroSense.Application.Interfaces.Repositories;
 using AgroSense.Infrastructure.Identity;
 using AgroSense.Infrastructure.Persistence;
+using AgroSense.Infrastructure.Repositories;
 using AgroSense.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +28,7 @@ namespace AgroSense.Infrastructure.Extensions
                 .AddDefaultTokenProviders();
 
             services.AddScoped<IJwtTokenService, JwtTokenService>();
+            services.AddScoped<IAreaRepository, AreaRepository>();
 
             services.AddJwtAuthentication(configuration);
 
